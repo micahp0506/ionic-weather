@@ -31,6 +31,7 @@ angular.module('starter', ['ionic', 'angular-skycons'])
     console.log(geopos);
     var lat = geopos.coords.latitude;
     var long = geopos.coords.longitude;
+    // forecast.io api key
     var apikey = 'e49fa87af2ea266974efda95426a3070';
     var url = '/api/forecast/' + apikey +'/' + lat +',' + long;
 
@@ -43,6 +44,13 @@ angular.module('starter', ['ionic', 'angular-skycons'])
     })
   });
 });
+
+.controller('searchCtrl', function ($http){
+  var search = this;
+  // google maps api key
+  var apikey = "AIzaSyAWN3a8-VGoBIeP_LMSeqErKIfdN-I92Pw";
+  var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + ",+" + state + "&key=" +apikey;
+})
 
 // .config(function($stateProvider, $urlRouterProvider){
 //   $stateProvider.state('root', {
