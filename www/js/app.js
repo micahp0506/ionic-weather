@@ -25,7 +25,10 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 
 .controller('weatherCtrl', function ($http){
   var weather = this;
-  navigator.geolocation.getCurrentPosition(function (geopos) { 
+  weather.temp = "--";
+  weather.summary = "Loading....";
+  navigator.geolocation.getCurrentPosition(function (geopos) {
+    console.log(geopos);
     var lat = geopos.coords.latitude;
     var long = geopos.coords.longitude;
     var apikey = 'e49fa87af2ea266974efda95426a3070';
