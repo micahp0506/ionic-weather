@@ -62,6 +62,7 @@ angular.module('starter', ['ionic', 'angular-skycons'])
   }
 
   weather.search = function () {
+    var something;
     console.log("Yep");
     $http.get('http://api.wunderground.com/api/fdcf53c91a30803b/conditions/forecast/geolookup/q/' + weather.searchQuery + '.json').then(parseWUdata).then(function(res){
       // console.log(res.data.current_observation.station_id);
