@@ -27,16 +27,18 @@
   <body ng-app="starter">
 
     <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Weather</h1>
-      </ion-header-bar>
-      <div id="main-content">
+        <div>
+          <ion-header-bar class="bar-stable">
+            <h1 class="title">Weather</h1>
+          </ion-header-bar>
+        </div>
       <ion-content ng-controller="weatherCtrl as weather">
-        <h1>{{weather.temp}}°F</h1>
-        <h4>{{weather.summary}}</h4>
-        <skycon icon="weather.icon"></skycon>
+        <div id="main-content">
+          <h1>{{weather.temp}}°F</h1>
+          <h4>{{weather.summary}}</h4>
+          <image src="{{weather.icon}}"></image>
+        </div>
       </ion-content>
-      </div>
     </ion-pane>
   </body>
 </html>

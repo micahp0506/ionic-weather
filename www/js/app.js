@@ -28,20 +28,33 @@ angular.module('starter', ['ionic', 'angular-skycons'])
   weather.temp = "--";
   weather.summary = "Loading....";
   navigator.geolocation.getCurrentPosition(function (geopos) {
-    console.log(geopos);
-    var lat = geopos.coords.latitude;
-    var long = geopos.coords.longitude;
-    var apikey = 'e49fa87af2ea266974efda95426a3070';
-    var url = '/api/forecast/' + apikey +'/' + lat +',' + long;
+    // console.log(geopos);
+    // var lat = geopos.coords.latitude;
+    // var long = geopos.coords.longitude;
+    // var apikey = 'fdcf53c91a30803b';
+    var url = 'http://api.wunderground.com/api/fdcf53c91a30803b/conditions/forecast/geolookup/q/autoip.json';
 
-    $http.get(url).then(function (res) {
-      console.log(res);
-      // debugger;
-      weather.temp = Math.round(res.data.currently.temperature);
-      weather.summary = res.data.currently.summary;
-      weather.icon = res.data.currently.icon;
-    })
+    $http.get(url).then(parseWUdata)
+      // console.log(res);
+      // // debugger;
+      // weather.city = res.data.location.city;
+      // weather.state = res.data.location.state;
+      // console.log(weather.city);
+      // weather.temp = res.data.current_observation.temp_f;
+      // weather.summary = res.data.current_observation.weather;
+      // weather.icon = 'http://icons.wxug.com/i/c/k/' + res.data.current_observation.icon + '.gif';
   });
+  
+  function parseWUdata(res) {
+    console.log(res);
+    // debugger;
+    weather.city = res.data.location.city;
+    weather.state = res.data.location.state;
+    // console.log(weather.city);
+    weather.temp = res.data.current_observation.temp_f;
+    weather.summary = res.data.current_observation.weather;
+    weather.icon = 'http://icons.wxug.com/i/c/k/' + res.data.current_observation.icon + '.gif';
+  }
 });
 
 // .config(function($stateProvider, $urlRouterProvider){
