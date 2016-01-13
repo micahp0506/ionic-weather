@@ -28,7 +28,8 @@ angular.module('starter', ['ionic', 'angular-skycons'])
   var url = 'http://api.wunderground.com/api/fdcf53c91a30803b/conditions/forecast/geolookup/q/autoip.json';
   weather.temp = "--";
   weather.summary = "Loading....";
-
+  weather.recent = JSON.parse(localStorage.getItem("searchHistory"));
+  console.log(weather.recent);
   $http.get(url).then(parseWUdata)
 
   navigator.geolocation.getCurrentPosition(function (geopos) {
@@ -73,10 +74,15 @@ angular.module('starter', ['ionic', 'angular-skycons'])
       var keyname = city + "," + state;
       console.log("keyname", keyname);
       history[keyname] = res.data.current_observation.station_id
-      localStorage.setItem("searchHistory", JSON.stringify(history)); 
+      localStorage.setItem("searchHistory", JSON.stringify(history));
+      weather.recent = JSON.parse(localStorage.getItem("searchHistory"));
     });
   }
 
+  weather.recentSearch = function(station_id) {
+    console.log(station_id);
+    $http.get('http://api.wunderground.com/api/fdcf53c91a30803b/conditions/forecast/geolookup/q/pws:' + station_id +'.json').then(parseWUdata);
+  }
 });
 
 // .config(function($stateProvider, $urlRouterProvider){

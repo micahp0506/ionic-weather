@@ -47,6 +47,10 @@
           <image src="{{weather.icon}}"></image>
           <h1>{{weather.temp}}°F</h1>
           <h4>{{weather.summary}}</h4>
+          <h1>Recent Searches</h1>
+          <div ng-repeat="(key, value) in weather.recent">
+            <h3 ng-click="weather.recentSearch('{{value}}')">{{key}}</h3>
+          </div>
         </div>
       </ion-content>
     </ion-pane>
