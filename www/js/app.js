@@ -25,26 +25,30 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 
 .controller('weatherCtrl', function ($http){
   var weather = this;
+  var url = 'http://api.wunderground.com/api/fdcf53c91a30803b/conditions/forecast/geolookup/q/autoip.json';
   weather.temp = "--";
   weather.summary = "Loading....";
-  navigator.geolocation.getCurrentPosition(function (geopos) {
-    // console.log(geopos);
-    // var lat = geopos.coords.latitude;
-    // var long = geopos.coords.longitude;
-    // var apikey = 'fdcf53c91a30803b';
-    var url = 'http://api.wunderground.com/api/fdcf53c91a30803b/conditions/forecast/geolookup/q/autoip.json';
 
-    $http.get(url).then(parseWUdata)
-      // console.log(res);
-      // // debugger;
-      // weather.city = res.data.location.city;
-      // weather.state = res.data.location.state;
-      // console.log(weather.city);
-      // weather.temp = res.data.current_observation.temp_f;
-      // weather.summary = res.data.current_observation.weather;
-      // weather.icon = 'http://icons.wxug.com/i/c/k/' + res.data.current_observation.icon + '.gif';
-  });
+  $http.get(url).then(parseWUdata)
+
+  navigator.geolocation.getCurrentPosition(function (geopos) {
+    console.log(geopos);
+    var lat = geopos.coords.latitude;
+    var long = geopos.coords.longitude;
+    // var apikey = 'fdcf53c91a30803b';
+    $http.get('http://api.wunderground.com/api/fdcf53c91a30803b/conditions/forecast/geolookup/q/' + lat + ',' + long + '.json').then(parseWUdata);
   
+
+  //     // console.log(res);
+  //     // // debugger;
+  //     // weather.city = res.data.location.city;
+  //     // weather.state = res.data.location.state;
+  //     // console.log(weather.city);
+  //     // weather.temp = res.data.current_observation.temp_f;
+  //     // weather.summary = res.data.current_observation.weather;
+  //     // weather.icon = 'http://icons.wxug.com/i/c/k/' + res.data.current_observation.icon + '.gif';
+  });
+
   function parseWUdata(res) {
     console.log(res);
     // debugger;
@@ -54,7 +58,22 @@ angular.module('starter', ['ionic', 'angular-skycons'])
     weather.temp = res.data.current_observation.temp_f;
     weather.summary = res.data.current_observation.weather;
     weather.icon = 'http://icons.wxug.com/i/c/k/' + res.data.current_observation.icon + '.gif';
+    return res;
   }
+
+  weather.search = function () {
+    console.log("Yep");
+    $http.get('http://api.wunderground.com/api/fdcf53c91a30803b/conditions/forecast/geolookup/q/' + weather.searchQuery + '.json').then(parseWUdata).then(function(res){
+      // console.log(res.data.current_observation.station_id);
+      var history = JSON.parse(localStorage.getItem("searchHistory")) || [];
+
+      if (history.indexOf(res.data.current_observation.station_id) === -1) {
+        history.push(res.data.current_observation.station_id);
+        localStorage.setItem("searchHistory", JSON.stringify(history));
+      }  
+    });
+  }
+
 });
 
 // .config(function($stateProvider, $urlRouterProvider){
