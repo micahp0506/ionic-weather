@@ -23,7 +23,7 @@ angular.module('starter', ['ionic', 'angular-skycons'])
   });
 })
 
-.controller('weatherCtrl', function ($http){
+.controller('weatherCtrl', function ($http, $scope){
   var weather = this;
   weather.temp = "--";
   weather.summary = "Loading....";
@@ -43,14 +43,32 @@ angular.module('starter', ['ionic', 'angular-skycons'])
       weather.icon = res.data.currently.icon;
     })
   });
+
+  $scope.changeLocation = function(weather){
+    console.log(weather.city, weather.state);
+    var city = weather.city;
+    var state = weather.state;
+    var googleapikey = "AIzaSyAWN3a8-VGoBIeP_LMSeqErKIfdN-I92Pw";
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + ",+" + state + "&key=" + googleapikey;
+
+    $http.get(url).then(function (res) {
+      console.log(res);
+      var lat = res.data.results;
+      console.log(lat);
+    })
+  }  
+
 });
 
-.controller('searchCtrl', function ($http){
-  var search = this;
-  // google maps api key
-  var apikey = "AIzaSyAWN3a8-VGoBIeP_LMSeqErKIfdN-I92Pw";
-  var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + ",+" + state + "&key=" +apikey;
-})
+// .controller('searchCtrl', function ($http){
+//   var search = this;
+//   // google maps api key
+//   var apikey = "AIzaSyAWN3a8-VGoBIeP_LMSeqErKIfdN-I92Pw";
+//   var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + ",+" + state + "&key=" +apikey;
+//   $http.get(url).then(function (res) {
+//       console.log(res);
+//   })
+// });
 
 // .config(function($stateProvider, $urlRouterProvider){
 //   $stateProvider.state('root', {
