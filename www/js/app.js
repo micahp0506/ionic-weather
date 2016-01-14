@@ -59,6 +59,8 @@ angular.module('starter', ['ionic', 'angular-skycons'])
     weather.temp = res.data.current_observation.temp_f;
     weather.summary = res.data.current_observation.weather;
     weather.icon = 'http://icons.wxug.com/i/c/k/' + res.data.current_observation.icon + '.gif';
+    weather.forecast = res.data.forecast.simpleforecast.forecastday;
+    console.log("weather.forecast",weather.forecast);
     return res;
   }
 

@@ -33,7 +33,7 @@
           </ion-header-bar>
         </div> -->
       <ion-content ng-controller="weatherCtrl as weather">
-        <div class="bar bar-header item-input-inset">
+        <form ng-submit="weather.search()" class="bar bar-header item-input-inset">
           <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <input type="search" placeholder="Search" ng-model="weather.searchQuery">
@@ -41,12 +41,16 @@
           <button class="button button-royal" ng-click="weather.search()">
             Search
           </button>
-        </div>
+        </form>
         <div id="main-content">
           <h1>{{weather.city}}</h1>
           <image src="{{weather.icon}}"></image>
           <h1>{{weather.temp}}°F</h1>
           <h4>{{weather.summary}}</h4>
+          <div id="forecast" ng-repeat="weather in weather.forecast">
+            <p>{{weather.high.fahrenheit}}°F</p>
+            
+          </div>
           <h1>Recent Searches</h1>
           <div ng-repeat="(key, value) in weather.recent">
             <h3 ng-click="weather.recentSearch('{{value}}')">{{key}}</h3>
