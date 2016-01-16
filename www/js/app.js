@@ -38,7 +38,7 @@ angular.module('starter', ['ionic', 'angular-skycons'])
     var long = geopos.coords.longitude;
     // var apikey = 'fdcf53c91a30803b';
     $http.get('http://api.wunderground.com/api/fdcf53c91a30803b/conditions/forecast/geolookup/q/' + lat + ',' + long + '.json').then(parseWUdata);
-  
+
 
   //     // console.log(res);
   //     // // debugger;
@@ -87,11 +87,3 @@ angular.module('starter', ['ionic', 'angular-skycons'])
   }
 });
 
-// .config(function($stateProvider, $urlRouterProvider){
-//   $stateProvider.state('root', {
-//     url:'/',
-//     template: '<h1>Hello World</h1>'
-//   });
-
-//   $urlRouterProvider.otherwise('/');
-// })
