@@ -38,17 +38,8 @@ angular.module('starter', ['ionic', 'angular-skycons'])
     var long = geopos.coords.longitude;
     // var apikey = 'fdcf53c91a30803b';
     $http.get('http://api.wunderground.com/api/fdcf53c91a30803b/conditions/forecast/geolookup/q/' + lat + ',' + long + '.json').then(parseWUdata);
-
-
-  //     // console.log(res);
-  //     // // debugger;
-  //     // weather.city = res.data.location.city;
-  //     // weather.state = res.data.location.state;
-  //     // console.log(weather.city);
-  //     // weather.temp = res.data.current_observation.temp_f;
-  //     // weather.summary = res.data.current_observation.weather;
-  //     // weather.icon = 'http://icons.wxug.com/i/c/k/' + res.data.current_observation.icon + '.gif';
   });
+
   // Function to parse data on the DOM
   function parseWUdata(res) {
     console.log(res);
@@ -63,6 +54,7 @@ angular.module('starter', ['ionic', 'angular-skycons'])
     console.log("weather.forecast",weather.forecast);
     return res;
   }
+
   // Function to handel the search functionality
   weather.search = function () {
     var something;
@@ -80,6 +72,7 @@ angular.module('starter', ['ionic', 'angular-skycons'])
       weather.recent = JSON.parse(localStorage.getItem("searchHistory"));
     });
   }
+
   // Function to handle recent searches
   weather.recentSearch = function(station_id) {
     console.log(station_id);
